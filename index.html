@@ -74,7 +74,7 @@
 
         start.addEventListener('click', async function(){
             let stream = await recordScreen();
-            let mimeType = 'video/mp4';
+            let mimeType = 'video/webm';
             mediaRecorder = createRecorder(stream, mimeType);
             status.textContent = "Recording started...";
             start.disabled = true;
@@ -97,7 +97,7 @@
 
         function createRecorder(stream, mimeType) {
             let recordedChunks = [];
-            const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/mp4' });
+            const mediaRecorder = new MediaRecorder(stream);
             
             mediaRecorder.ondataavailable = function (e) {
                 if (e.data.size > 0) {
@@ -115,7 +115,7 @@
         }
 
         function saveFile(recordedChunks) {
-            const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
             let filename = window.prompt('Enter your video file name') || 'recording';
             let downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(blob);
